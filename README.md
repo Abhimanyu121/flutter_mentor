@@ -1,2 +1,2 @@
 # mentor_app
-Its a WIP, better reademe will be added soon.
+Its a WIP, better read me will be added soon.
