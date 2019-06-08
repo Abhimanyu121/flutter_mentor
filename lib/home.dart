@@ -20,7 +20,25 @@ class _home_ui extends State<Home>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: (index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.0),
+              borderRadius: BorderRadius.circular(20)
+          ),
+          child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: (index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))) ,
+              )
+          ),
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         shape: RoundedRectangleBorder(),
@@ -130,3 +148,4 @@ class _home_ui extends State<Home>{
 
   }
 }
+//(index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) ))))
