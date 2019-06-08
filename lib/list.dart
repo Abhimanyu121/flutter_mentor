@@ -44,7 +44,7 @@ class _list_ui extends State<List_tab>{
                        padding: EdgeInsets.all(10) ,
                        child: Column(
                          children: <Widget>[
-                           Text("PROFICIENCY"),
+                           Text("PROFICIENCY:",style:TextStyle(fontWeight:FontWeight.bold,) ),
                            Padding(
                              padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                              child: Column(
@@ -83,7 +83,7 @@ class _list_ui extends State<List_tab>{
                          padding: EdgeInsets.all(10) ,
                          child: Column(
                            children: <Widget>[
-                             Text("PROFICIENCY"),
+                             Text("PROFICIENCY:",style:TextStyle(fontWeight:FontWeight.bold,) ),
                              Padding(
                                padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                                child: Column(
@@ -122,7 +122,7 @@ class _list_ui extends State<List_tab>{
                          padding: EdgeInsets.all(10) ,
                          child: Column(
                            children: <Widget>[
-                             Text("PROFICIENCY"),
+                             Text("PROFICIENCY:",style:TextStyle(fontWeight:FontWeight.bold,) ),
                              Padding(
                                padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                                child: Column(
@@ -161,7 +161,7 @@ class _list_ui extends State<List_tab>{
                          padding: EdgeInsets.all(10) ,
                          child: Column(
                            children: <Widget>[
-                             Text("PROFICIENCY"),
+                             Text("PROFICIENCY:", style:TextStyle(fontWeight:FontWeight.bold,) ,),
                              Padding(
                                padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                                child: Column(
