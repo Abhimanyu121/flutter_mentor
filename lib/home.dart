@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'list.dart';
 import 'profile.dart';
 class Home extends StatefulWidget{
   static String tag = 'home-page';
@@ -8,6 +9,8 @@ class Home extends StatefulWidget{
   Widget body;
 }
 class _home_ui extends State<Home>{
+  Profile profile = new Profile();
+  List_tab list_tab = new List_tab();
   bool index1 = true;
   bool index2 = false;
   bool index3 = false;
@@ -17,7 +20,7 @@ class _home_ui extends State<Home>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: (index1? (index2 ? (index3? new Profile(): new Profile()) : new Profile()): new Profile()),
+      body: (index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))),
       appBar: AppBar(elevation: 0,shape: RoundedRectangleBorder(),centerTitle: true,title:Text("Home"),backgroundColor: Colors.blue,),
       backgroundColor: Colors.blue,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
