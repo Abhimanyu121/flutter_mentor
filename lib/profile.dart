@@ -8,7 +8,6 @@ class _profile_ui extends State<Profile>{
   @override
   Widget build(BuildContext context) {
     print("called");
-    // TODO: implement build
     return new Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Container(
