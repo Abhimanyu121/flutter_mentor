@@ -11,6 +11,8 @@ class _home_ui extends State<Home>{
   bool index1 = true;
   bool index2 = false;
   bool index3 = false;
+  bool index4 = false;
+  bool index5 =false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,10 @@ class _home_ui extends State<Home>{
       backgroundColor: Colors.blue,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){_onTap(2);},
+        onPressed: (){_onTap(3);},
         backgroundColor: Colors.red,
-        child: const Icon(
-          Icons.add,
+        child:  Icon(
+          (index3 ? Icons.clear:Icons.add),
           color: Colors.black,
         ),
       ),
@@ -33,18 +35,33 @@ class _home_ui extends State<Home>{
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+
             IconButton(
-              icon: Icon(Icons.menu),
-              color: Colors.black,
+              icon: Icon(Icons.perm_identity),
+              color: (index1? Colors.red : Colors.black),
               onPressed: () {
                 _onTap(1);
               },
             ),
             IconButton(
-              icon: Icon(Icons.search),
-              color: Colors.black,
+              icon: Icon(Icons.menu),
+              color: (index2? Colors.red : Colors.black),
               onPressed: () {
-                _onTap(3);
+                _onTap(2);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.stars),
+              color: (index4? Colors.red : Colors.black),
+              onPressed: () {
+                _onTap(4);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.timelapse),
+              color: (index5 ? Colors.red : Colors.black),
+              onPressed: () {
+                _onTap(5);
               },
             ),
           ],
@@ -62,14 +79,34 @@ class _home_ui extends State<Home>{
         index2= false;
         index1 = true;
         index3 = false;
+        index4 = false;
+        index5 = false;
       }else if (index ==2){
         index2= true;
         index1 = false;
         index3 = false;
+        index4 = false;
+        index5 = false;
       } else if (index ==3){
         index2= false;
         index1 = false;
         index3 = true;
+        index4 = false;
+        index5 = false;
+      }
+      else if (index ==4){
+        index2= false;
+        index1 = false;
+        index3 = false;
+        index4 = true;
+        index5 = false;
+      }
+      else if (index ==5){
+        index2= false;
+        index1 = false;
+        index3 = false;
+        index4 = false;
+        index5 = true;
       }
     });
 
