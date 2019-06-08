@@ -21,7 +21,22 @@ class _home_ui extends State<Home>{
   Widget build(BuildContext context) {
     return new Scaffold(
       body: (index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))),
-      appBar: AppBar(elevation: 0,shape: RoundedRectangleBorder(),centerTitle: true,title:Text("Home"),backgroundColor: Colors.blue,),
+      appBar: AppBar(
+        elevation: 0,
+        shape: RoundedRectangleBorder(),
+        //centerTitle: true,
+        title:(index1 ? Text("Profile") : (index2 ? Text("List of Mentors") : (index3 ? Text("Add Goals") : (index4 ? Text("List Of Goals"):(index5 ? Text("Timeline for Goals"):Text("")) )))),
+        actions: <Widget>[
+          FlatButton(
+            child: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: (){},
+          )
+        ],
+        backgroundColor: Colors.blue,
+      ),
       backgroundColor: Colors.blue,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
