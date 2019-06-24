@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'register.dart';
+
 class Login extends StatefulWidget{
   static String tag = 'login-page';
   @override
@@ -42,7 +45,6 @@ class Login extends StatefulWidget{
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
-          //Navigator.of(context).pushNamed(HomePage.tag);
         },
         padding: EdgeInsets.all(12),
         color: Colors.blueAccent,
@@ -51,7 +53,12 @@ class Login extends StatefulWidget{
     );
     final register = Padding (
       padding: EdgeInsets.symmetric(vertical: 9.0),
-      child: FlatButton(onPressed: (){},
+      child: FlatButton(onPressed: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Register()),
+        );
+      },
           child: Text("Register"),
       ),
     );

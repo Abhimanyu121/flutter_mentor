@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'addGoals.dart';
 import 'list.dart';
 import 'profile.dart';
 class Home extends StatefulWidget{
@@ -11,6 +12,7 @@ class Home extends StatefulWidget{
 class _home_ui extends State<Home>{
   Profile profile = new Profile();
   List_tab list_tab = new List_tab();
+  addGoals newGoals = new addGoals();
   bool index1 = true;
   bool index2 = false;
   bool index3 = false;
@@ -34,7 +36,7 @@ class _home_ui extends State<Home>{
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: (index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))) ,
+                child: (index1 ? profile : (index2 ? list_tab : (index3 ? newGoals : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))) ,
               )
           ),
         ),
@@ -51,6 +53,13 @@ class _home_ui extends State<Home>{
               color: Colors.black,
             ),
             onPressed: (){},
+          ),
+          FlatButton(
+            child: Icon(
+              Icons.account_circle,
+              color: Colors.black,
+            ),
+            onPressed: (){_onTap(1);},
           )
         ],
         backgroundColor: Colors.blue,
@@ -148,4 +157,3 @@ class _home_ui extends State<Home>{
 
   }
 }
-//(index1 ? profile : (index2 ? list_tab : (index3 ? list_tab : (index4 ? list_tab:(index5 ? list_tab:list_tab) ))))
