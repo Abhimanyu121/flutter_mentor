@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'register.dart';
+import 'apiWrapper.dart';
 
 class Login extends StatefulWidget{
   static String tag = 'login-page';
@@ -8,6 +9,9 @@ class Login extends StatefulWidget{
   _loginPageState createState() => new _loginPageState();
 }
  class _loginPageState extends State<Login>{
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  var _email = new TextEditingController();
+  var _password = new TextEditingController();
   @override
   Widget build(BuildContext context) {
 
@@ -27,6 +31,7 @@ class Login extends StatefulWidget{
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+      controller: _email,
     );
 
     final password = TextFormField(
@@ -37,6 +42,7 @@ class Login extends StatefulWidget{
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+      controller: _password,
     );
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -44,7 +50,8 @@ class Login extends StatefulWidget{
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {
+        onPressed: (){
+          _login();
         },
         padding: EdgeInsets.all(12),
         color: Colors.blueAccent,
@@ -64,6 +71,7 @@ class Login extends StatefulWidget{
     );
     // TODO: implement build
     return Scaffold(
+      key:_scaffoldKey,
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
@@ -83,5 +91,21 @@ class Login extends StatefulWidget{
         ),
       ),
     );
+
+  }
+  _login() async {
+    ApiWrapper wrapper = new ApiWrapper();
+    int resp =await wrapper.LoginRoute(_email.text, _password.text);
+    if(resp==1){
+      Navigator.of(context).popAndPushNamed('/home');
+    }
+    if(resp==2){
+      final snackBar = SnackBar(content: Text("Wrong email or password"));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
+    if(resp ==3){
+      final snackBar = SnackBar(content: Text("Something went wrong"));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
   }
 }

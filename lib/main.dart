@@ -8,9 +8,9 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
-    Login.tag:(context) =>Login(),
-    Home.tag:(context) =>Home(),
-    Register.tag:(context) => Register()
+    "/login":(context) =>Login(),
+    "/home":(context) =>Home(),
+    "/register":(context) => Register()
   };
 
   // This widget is the root of your application.
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           buttonColor: Colors.lightBlueAccent,
         )
       ),
-      home: Register(),
+      home: Login(),
       routes: routes,
     );
   }
