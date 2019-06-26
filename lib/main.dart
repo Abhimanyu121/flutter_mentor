@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 import 'login.dart';
 import 'register.dart';
+void main() async
+{
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+  runApp(MyApp());
+}
+class MyApp extends StatefulWidget{
+  @override
+  MyApp_ui createState()  => new MyApp_ui();
+
+}
+
+class MyApp_ui extends State<MyApp> {
+  Widget currentWidget = Login();
+  Future<dynamic> getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('status');
+  }
+  @override
+  void initState() {
+    getUser().then((value) {
+      if (value == 'null'|| value ==false) {
+        print(value.toString());
+        setState(() {
+          currentWidget = Login();
+        });
+      } else {
+        print(value.toString());
+        setState(() {
+          currentWidget = Home();
+        });
+      }
+    });
+  }
   final routes = <String, WidgetBuilder>{
     "/login":(context) =>Login(),
     "/home":(context) =>Home(),
-    "/register":(context) => Register()
+    "/register":(context) => Register(),
   };
 
   // This widget is the root of your application.
@@ -33,7 +63,7 @@ class MyApp extends StatelessWidget {
           buttonColor: Colors.lightBlueAccent,
         )
       ),
-      home: Login(),
+      home: currentWidget,
       routes: routes,
     );
   }

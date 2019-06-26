@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'register.dart';
 import 'apiWrapper.dart';
 
@@ -97,14 +97,14 @@ class Login extends StatefulWidget{
     ApiWrapper wrapper = new ApiWrapper();
     int resp =await wrapper.LoginRoute(_email.text, _password.text);
     if(resp==1){
-      Navigator.of(context).popAndPushNamed('/home');
+     Navigator.of(context).pushNamedAndRemoveUntil('/home', ModalRoute.withName('/login'));
     }
     if(resp==2){
       final snackBar = SnackBar(content: Text("Wrong email or password"));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
     if(resp ==3){
-      final snackBar = SnackBar(content: Text("Something went wrong"));
+      final snackBar = SnackBar(content: Text("Wrong email or password"));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
   }
