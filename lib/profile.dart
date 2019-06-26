@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget{
+
   _profile_ui createState() => new _profile_ui();
 }
 class _profile_ui extends State<Profile>{
-
+  Map data=new Map<String, dynamic>();
+  _init(){
+    data['email']="loading";
+    data['name']="loading";
+    data['number']="loading";
+    data['city']="loading";
+    data['interest']="loading";
+    data['college']="loading";
+    data['gender']="loading";
+  }
+  Future<dynamic> getProfile()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map map = new Map<String, dynamic>();
+    map['email']=prefs.getString("email");
+    map['name']=prefs.getString("name");
+    map['college']=prefs.getString("college");
+    map['interest']=prefs.getString("interest");
+    map['city']=prefs.getString("location");
+    map['number']=prefs.getString("number");
+    map['gender']=prefs.getString("gender");
+    return map;
+  }
+  @override
+  void initState() {
+    _init();
+    getProfile().then((value){
+      setState(() {
+        data = value;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     print("called");
@@ -19,7 +51,7 @@ class _profile_ui extends State<Profile>{
             child: Row(
               children: <Widget>[
                 Text("Name",style: TextStyle(fontWeight: FontWeight.bold),),
-                Text("qwerty"),
+                Text(data['name']),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -32,7 +64,7 @@ class _profile_ui extends State<Profile>{
             child: Row(
               children: <Widget>[
                 Text("Gender",style: TextStyle(fontWeight: FontWeight.bold),),
-                Text("Male"),
+                Text(data['gender']),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -45,7 +77,7 @@ class _profile_ui extends State<Profile>{
             child: Row(
               children: <Widget>[
                   Text("College",style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text("qwerty University"),
+                  Text(data['college'],textAlign: TextAlign.right,)
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween
             ),
@@ -58,7 +90,7 @@ class _profile_ui extends State<Profile>{
             child: Row(
                 children: <Widget>[
                   Text("Email",style: TextStyle(fontWeight: FontWeight.bold),),
-                  Container(width:150,child: Text("qwerty@University.asdf",maxLines: 5,overflow: TextOverflow.ellipsis,)),
+                  Container(width:150,child: Text(data['email'],textAlign: TextAlign.right,maxLines: 5,overflow: TextOverflow.ellipsis,)),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween
             ),
@@ -75,7 +107,7 @@ class _profile_ui extends State<Profile>{
                   Text("Areas of intrest",style: TextStyle(fontWeight: FontWeight.bold),),
                   Container(
                     width: 150,
-                    child: Text("qwerty wertyjklghsadsfvcdxsdsvcx University",textAlign: TextAlign.justify,
+                    child: Text(data['interest'],textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis, maxLines: 5),
                   ),
                 ],
@@ -90,7 +122,7 @@ class _profile_ui extends State<Profile>{
             child: Row(
                 children: <Widget>[
                   Text("Location",style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text("Haryan,NCR"),
+                  Text(data['city']),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween
             ),
