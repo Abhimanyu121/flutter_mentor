@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 import 'apiWrapper.dart';
 bool new_topic = false;
@@ -10,19 +12,39 @@ class _add_goals extends State<addGoals>{
   static int pos =0;
   static int state=0;
   static List list;
-  static List list2;
+  static bool match=true;
+  static bool load = false;
+  static String mTopic;
  // SharedPreferences prefs;
   _fetchData() async {
-
     ApiWrapper wrapper= new ApiWrapper();
-    return wrapper.getTopics();
-
+    return await wrapper.getTopics();
+  }
+  _checkMatch()async {
+    ApiWrapper wrapper = new ApiWrapper();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("matching")){
+      mTopic =  prefs.getString("match_topic");
+      print(mTopic);
+      return await wrapper.enMentor();
+  }
+    else
+      return false;
   }
   @override
   void initState() {
+    match =false;
     _fetchData().then((value){
       setState(() {
         list = value;
+      });
+    });
+    _checkMatch().then((value){
+      setState(() {
+        if(value)
+          match=value;
+        else
+          match =false;
       });
     });
   }
@@ -30,7 +52,7 @@ class _add_goals extends State<addGoals>{
 
   @override
   Widget build(BuildContext context) {
-    return (list==null)? _loader():_view();
+    return (list==null)? _loader():match?_matching():_view();
   }
 _loader(){
     return new SpinKitFoldingCube(color: Colors.blue,size: 25.0,);
@@ -46,7 +68,7 @@ _view(){
             child: PageView.builder(
               itemCount: list.length,
               itemBuilder: (context, position){
-                pos = position+1;
+                pos = position;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -88,7 +110,7 @@ _view(){
                 borderRadius: BorderRadius.circular(24),
               ),
               onPressed: (){
-
+                _enroll();
               },
               padding: EdgeInsets.all(12),
               color: Colors.red,
@@ -100,10 +122,36 @@ _view(){
       ],
     );
 }
-_enroll(){
+_enroll()async{
+  ApiWrapper wrapper= new ApiWrapper();
+  setState(() {
+    load =true;
+  });
+  bool stat = await wrapper.enroll(list[pos]);
+  if (stat){
+    setState(() {
+      match=true;
+    });
+  }
+  else {
+    Toast.show("Something Went Wrong", context,duration: Toast.LENGTH_LONG);
+  }
+}
+_matching(){
+    String val = "Hold on tight while we find you a mentor. ";
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SpinKitWanderingCubes(color: Colors.black,size: 90,),
+          Padding(
 
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: Text(val, textAlign: TextAlign.center)),
+          )
+        ],
+      ),
+    );
 }
 
 }
-//Text(((state==1 )? list[position%list.length]:list[position%list.length])),
-//position % 2 == 0 ? Colors.deepOrange : Colors.teal,
