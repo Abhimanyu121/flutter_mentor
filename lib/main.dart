@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'home.dart';
 import 'login.dart';
 import 'register.dart';
@@ -24,7 +25,7 @@ class MyApp_ui extends State<MyApp> {
   @override
   void initState() {
     getUser().then((value) {
-      if (value == 'null'|| value ==false) {
+      if (value == null|| value ==false) {
         print(value.toString());
         setState(() {
           currentWidget = Login();
