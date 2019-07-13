@@ -185,10 +185,10 @@ class _registerPageState extends State<Register>{
     Scaffold scaffold = new Scaffold(
       backgroundColor: Colors.white,
       key: _scaffoldKey,
-        body: center
+        body:_load? loading: center
 
     );
-    return _load? loading:scaffold;
+    return scaffold;
   }
   _register(BuildContext context) async {
     setState(() {
