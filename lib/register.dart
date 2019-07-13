@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'apiWrapper.dart';
 import 'exceptionHandler.dart';
@@ -32,12 +32,7 @@ class _registerPageState extends State<Register>{
   }
   @override
   Widget build(BuildContext context) {
-    Widget loadingIndicator =_load? new Container(
-      color: Colors.grey[300],
-      width: 70.0,
-      height: 70.0,
-      child: new Padding(padding: const EdgeInsets.all(5.0),child: new Center(child: new CircularProgressIndicator())),
-    ):new Container();
+    Widget loading = SpinKitFoldingCube(color: Colors.black54, size: 70);
     Widget center = new Center(
       child: ListView(
         shrinkWrap: true,
@@ -190,15 +185,16 @@ class _registerPageState extends State<Register>{
     Scaffold scaffold = new Scaffold(
       backgroundColor: Colors.white,
       key: _scaffoldKey,
-      body: ModalProgressHUD(child: center, inAsyncCall: _load)
+        body: center
 
     );
-    return scaffold;
+    return _load? loading:scaffold;
   }
   _register(BuildContext context) async {
-   // setState(() {
-     // _load=true;
-    //});
+    setState(() {
+      _load=true;
+    });
+
 
     String error;
     exceptionHandler handler = new exceptionHandler();
