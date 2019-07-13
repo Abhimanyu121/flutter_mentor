@@ -106,7 +106,7 @@ class _$ActiveDao extends ActiveDao {
   }
 
   @override
-  Future<Active> findActiveById(int topic) async {
+  Future<Active> findActiveById(String topic) async {
     return _queryAdapter.query('SELECT * FROM Active WHERE topic = ?',
         arguments: <dynamic>[topic], mapper: _activeMapper);
   }

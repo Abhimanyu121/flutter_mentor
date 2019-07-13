@@ -16,7 +16,7 @@ abstract class ActiveDao{
   @Query('SELECT * FROM Active')
   Future<List<Active>> findAllActive();
   @Query('SELECT * FROM Active WHERE topic = :topic')
-  Future<Active> findActiveById(int topic);
+  Future<Active> findActiveById(String topic);
   @insert
   Future<void> insertTopic(Active active);
   @Query('SELECT * FROM Active WHERE topic =:topic')
