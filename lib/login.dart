@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'register.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import 'apiWrapper.dart';
+import 'register.dart';
 
 class Login extends StatefulWidget{
   static String tag = 'login-page';
@@ -12,8 +13,10 @@ class Login extends StatefulWidget{
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   var _email = new TextEditingController();
   var _password = new TextEditingController();
+  bool loggin = false;
   @override
   Widget build(BuildContext context) {
+    Widget loading = SpinKitFoldingCube(color: Colors.black54, size: 70);
 
     final logo = Hero(
       tag: 'hero',
@@ -74,7 +77,7 @@ class Login extends StatefulWidget{
       key:_scaffoldKey,
       backgroundColor: Colors.white,
       body: Center(
-        child: ListView(
+        child:  loggin?loading: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
@@ -94,6 +97,9 @@ class Login extends StatefulWidget{
 
   }
   _login() async {
+    setState(() {
+      loggin =true;
+    });
     ApiWrapper wrapper = new ApiWrapper();
     int resp =await wrapper.LoginRoute(_email.text, _password.text);
     if(resp==1){
@@ -107,5 +113,8 @@ class Login extends StatefulWidget{
       final snackBar = SnackBar(content: Text("Wrong email or password"));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
+    setState(() {
+      loggin =false;
+    });
   }
 }
