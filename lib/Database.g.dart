@@ -118,6 +118,11 @@ class _$ActiveDao extends ActiveDao {
   }
 
   @override
+  Future<void> deleteAllActive() async {
+    await _queryAdapter.queryNoReturn('delete from Active');
+  }
+
+  @override
   Future<void> insertTopic(Active active) async {
     await _activeInsertionAdapter.insert(
         active, sqflite.ConflictAlgorithm.abort);
@@ -155,8 +160,13 @@ class _$UnSelectedDao extends UnSelectedDao {
 
   @override
   Future<List<UnSelected>> deleteUnSelectedWithId(String topic) async {
-    return _queryAdapter.queryList('SELECT * FROM UnSelected WHERE topic =?',
+    return _queryAdapter.queryList('delete * FROM UnSelected WHERE topic =?',
         arguments: <dynamic>[topic], mapper: _unSelectedMapper);
+  }
+
+  @override
+  Future<void> deleteAllUnSelected() async {
+    await _queryAdapter.queryNoReturn('delete from UnSelected');
   }
 
   @override

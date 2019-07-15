@@ -21,6 +21,8 @@ abstract class ActiveDao{
   Future<void> insertTopic(Active active);
   @Query('SELECT * FROM Active WHERE topic =:topic')
   Future<List<Active>> deleteActiveWithId(String topic);
+  @Query('delete from Active')
+  Future<void> deleteAllActive();
 }
 @dao
 abstract class UnSelectedDao{
@@ -32,4 +34,6 @@ abstract class UnSelectedDao{
   Future<void> insertTopic(UnSelected active);
   @Query('delete * FROM UnSelected WHERE topic =:topic')
   Future<List<UnSelected>> deleteUnSelectedWithId(String topic);
+  @Query('delete from UnSelected')
+  Future<void> deleteAllUnSelected();
 }

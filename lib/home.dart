@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Database.dart';
 import 'addGoals.dart';
 import 'list.dart';
 import 'profile.dart';
@@ -48,11 +50,10 @@ class _home_ui extends State<Home>{
         title:(index1 ? Text("Profile") : (index2 ? Text("List of Mentors") : (index3 ? Text("Add Goals") : (index4 ? Text("List Of Goals"):(index5 ? Text("Timeline for Goals"):Text("")) )))),
         actions: <Widget>[
           FlatButton(
-            child: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            onPressed: (){},
+            child: Text("Logout"),
+            onPressed: (){
+              _logout();
+            },
           ),
           FlatButton(
             child: Icon(
@@ -141,6 +142,28 @@ class _home_ui extends State<Home>{
         index5 = true;
       }
     });
+
+  }
+  _logout()async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("email", "");
+    await prefs.setString("password", "");
+    await prefs.setString("name", "");
+    await prefs.setString("number", "");
+    await prefs.setString("interest", "");
+    await prefs.setString("college", "");
+    await prefs.setString("gender", "");
+    await prefs.setString("mentor", "");
+    await prefs.setString("location", "");
+    await prefs.setBool("status", false);
+    final database = await $FloorAppDatabase
+        .databaseBuilder('mentordb.db')
+        .build();
+    final active = database.activeDao;
+    final unSelected = database.unSelectedDao;
+    active.deleteAllActive();
+    unSelected.deleteAllUnSelected();
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', ModalRoute.withName('/home'));
 
   }
 }
