@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'Database.dart';
+import 'DbAdapter.dart';
 import 'apiWrapper.dart';
 import 'register.dart';
 
@@ -97,24 +99,55 @@ class Login extends StatefulWidget{
 
   }
   _login() async {
+
     setState(() {
       loggin =true;
     });
+    final database = await $FloorAppDatabase
+        .databaseBuilder('mentordb.db')
+        .build();
+    final active = database.activeDao;
+    final unSelected = database.unSelectedDao;
     ApiWrapper wrapper = new ApiWrapper();
     int resp =await wrapper.LoginRoute(_email.text, _password.text);
     if(resp==1){
-     Navigator.of(context).pushNamedAndRemoveUntil('/home', ModalRoute.withName('/login'));
+      setState(() {
+        loggin =false;
+      });
+      await wrapper.getActive().then((ls){
+        for(int i =0; i<ls.length;i++){
+
+          active.insertTopic(Active(ls[0].toString()));
+          unSelected.insertTopic(UnSelected(ls[0].toString()));
+
+          active.findActiveById(ls[0].toString()).then((value) {
+            print("dblog");
+            print(value.topic);
+          });
+
+        }
+        active.findAllActive().then((value){
+          print(value);
+        });
+      });
+
+      Navigator.of(context).pushNamedAndRemoveUntil('/home', ModalRoute.withName('/login'));
     }
     if(resp==2){
+      setState(() {
+        loggin =false;
+      });
       final snackBar = SnackBar(content: Text("Wrong email or password"));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
     if(resp ==3){
+      setState(() {
+        loggin =false;
+      });
       final snackBar = SnackBar(content: Text("Wrong email or password"));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
-    setState(() {
-      loggin =false;
-    });
+
+
   }
 }

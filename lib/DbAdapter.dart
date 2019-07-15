@@ -30,6 +30,6 @@ abstract class UnSelectedDao{
   Future<UnSelected> findUnSelectedById(int topic);
   @insert
   Future<void> insertTopic(UnSelected active);
-  @Query('SELECT * FROM UnSelected WHERE topic =:topic')
+  @Query('delete * FROM UnSelected WHERE topic =:topic')
   Future<List<UnSelected>> deleteUnSelectedWithId(String topic);
 }

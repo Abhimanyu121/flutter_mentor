@@ -36,7 +36,7 @@ class _home_ui extends State<Home>{
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: (index1 ? profile : (index2 ? list_tab : (index3 ? newGoals : (index4 ? list_tab:(index5 ? list_tab:list_tab) )))) ,
+                child: (index1 ? profile : (index2 ? list_tab :  newGoals )) ,
               )
           ),
         ),
@@ -78,7 +78,7 @@ class _home_ui extends State<Home>{
 
         child: new Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
 
             IconButton(
@@ -95,20 +95,7 @@ class _home_ui extends State<Home>{
                 _onTap(2);
               },
             ),
-            IconButton(
-              icon: Icon(Icons.stars),
-              color: (index4? Colors.red : Colors.black),
-              onPressed: () {
-                _onTap(4);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.timelapse),
-              color: (index5 ? Colors.red : Colors.black),
-              onPressed: () {
-                _onTap(5);
-              },
-            ),
+
           ],
         ),
         color: Colors.white,

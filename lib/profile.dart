@@ -129,20 +129,7 @@ class _profile_ui extends State<Profile>{
           ),
         ),
 
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
-          child: RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            onPressed: () {
-              //Navigator.of(context).pushNamed(HomePage.tag);
-            },
-            padding: EdgeInsets.all(12),
-            color: Colors.blueAccent,
-            child: Text('Update Profile', style: TextStyle(color: Colors.white)),
-          ),
-        )
+
       ],
     );
   }
